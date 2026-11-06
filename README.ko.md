@@ -4,6 +4,9 @@
 
 ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포팅 펌웨어입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
 
+- 포트: 1 Gbps LAN 4개, 2.5 Gbps WAN 1개, USB 3.0 1개
+- OpenWrt target: `airoha/an7563`, device `iptime_be5100m`
+
 > [!WARNING]
 > 비공식 펌웨어입니다. 설치하면 제조사 보증이 사라질 수 있고, 플래시 중 문제가 생기면 UART 연결이 필요할 수 있습니다. 모든 책임은 사용자 본인에게 있습니다.
 
@@ -35,18 +38,18 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 
 1. 제조사 펌웨어 관리 페이지(`192.168.0.1`) → 관리도구 → 시스템 관리 → 펌웨어 업그레이드.
 2. `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin`을 올립니다. 파일 이름에 `_16_006`이 들어 있어야 합니다.
-3. 전원을 끄지 말고 기다립니다. 자동 재부팅 후 `192.168.1.1`로 OpenWrt가 올라옵니다. root 비밀번호를 설정하세요.
-4. **5분 안에 OpenWrt가 안 열리고 제조사 펌웨어가 다시 올라오면**(중간에 한 번 스스로 재부팅됩니다) 제조사 펌웨어가 두 번째 슬롯에서 돌고 있었던 것입니다. ipTIME 홈페이지에서 받은 제조사 펌웨어를 웹 UI로 **한 번 더** 올리면 제조사 펌웨어가 메인 슬롯으로 돌아오니, 그 뒤 위 1~3을 다시 합니다.
+3. 전원을 끄지 말고 기다립니다. 자동 재부팅 후 `http://192.168.1.1`로 OpenWrt가 올라옵니다(사용자 `root`, 비밀번호 없음). root 비밀번호를 설정하세요.
+4. **5분 안에 OpenWrt가 안 열리고 제조사 펌웨어가 다시 올라오면**(중간에 한 번 스스로 재부팅됩니다) 제조사 펌웨어가 두 번째 슬롯에서 돌고 있었던 것입니다. [ipTIME 다운로드 페이지](https://iptime.com/support/downloads?dfsid=21&dftid=903)에서 받은 제조사 펌웨어를 웹 UI로 **한 번 더** 올리면 제조사 펌웨어가 메인 슬롯으로 돌아오니, 그 뒤 위 1~3을 다시 합니다.
 
 > [!IMPORTANT]
 > 웹 설치에는 **r113 파일만** 쓰세요. 이후 버전의 factory 이미지는 웹 설치 시 두 번째 부팅에서 제조사 펌웨어로 되돌아갑니다(제조사 U-Boot의 `boot_try` 동작). r113은 이를 막는 수정이 들어 있습니다.
 
 ## UART로 설치·복구 (고급)
 
-웹 설치를 할 수 없거나 OpenWrt가 부팅되지 않을 때 씁니다. 3.3 V USB-UART 어댑터(GND, TX, RX만 연결, VCC는 연결하지 않음), `192.168.0.100`의 PC에서 돌아가는 TFTP 서버, `*-slot.bin` 이미지가 필요합니다.
+웹 설치를 할 수 없거나 OpenWrt가 부팅되지 않을 때 씁니다. 3.3 V USB-UART 어댑터(GND, TX, RX만 연결, VCC는 연결하지 않음. 보드에 UART 핀 헤더가 달려 있고 핀 이름이 인쇄되어 있음), `192.168.0.100`의 PC에서 돌아가는 TFTP 서버, `*-slot.bin` 이미지가 필요합니다.
 
 1. UART(115200 8N1)를 연결하고 전원을 켠 뒤 `Hit any key to stop autoboot`가 보이면 아무 키나 눌러 U-Boot `ECNT>` 프롬프트로 들어갑니다(대기 시간이 짧습니다).
-2. PC를 LAN 포트에 연결하고 아래를 실행합니다(`<len>`은 파일 크기를 `0x20000` 단위로 올린 값).
+2. PC를 고정 IP `192.168.0.100/24`로 설정하고 LAN 포트(예: LAN1)에 연결한 뒤 TFTP 서버를 켭니다(Windows는 방화벽에서 TFTP 허용). 그다음 아래를 실행합니다(`<len>`은 파일 크기를 `0x20000` 단위로 올린 값).
 
 ```
 tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
@@ -80,6 +83,7 @@ reboot
 
 ## 알려진 제한 사항
 
+- 제조사의 리셋 버튼 TFTP 복구 모드는 시험하지 않았습니다. ipTIME Firmware Wizard는 BE 모델을 지원하지 않습니다.
 - 패키지 저장소는 공식 `base`, `luci`, `packages`, `routing`, `telephony`, `video`만 남깁니다. 이미지에 없는 커널 모듈은 `apk add kmod-…`로 설치할 수 없습니다.
 
 ## 소스와 빌드
