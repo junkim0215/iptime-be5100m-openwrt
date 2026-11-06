@@ -49,7 +49,7 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 2. PC를 고정 IP `192.168.0.100/24`로 설정하고 LAN 포트(예: LAN1)에 연결한 뒤 TFTP 서버를 켭니다(Windows는 방화벽에서 TFTP 허용). 그다음 아래를 실행합니다(`<len>`은 파일 크기를 `0x20000` 단위로 올린 값).
 
 ```
-tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
+tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-squashfs-slot.bin
 crc32 0x88000000 <len>
 flash erase 0x2D00000 <len>
 flash write 0x2D00000 <len> 0x88000000
@@ -89,8 +89,8 @@ reboot
 
 | 릴리스 | 태그 | 커밋 |
 |---|---|---|
-| r113 (웹 설치용) | `be5100m-r113` | `b6e0f16590` |
-| r115 (sysupgrade) | `be5100m-r115` | `de8de5506c` |
+| [r113](../../releases/tag/r113) (웹 설치용) | `be5100m-r113` | `b6e0f16590` |
+| [r115](../../releases/tag/r115) (sysupgrade) | `be5100m-r115` | `de8de5506c` |
 
 ```
 git clone https://github.com/junkim0215/openwrt.git && cd openwrt
