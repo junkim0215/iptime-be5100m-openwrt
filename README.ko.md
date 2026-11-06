@@ -45,7 +45,7 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 
 ## UART로 설치·복구 (고급)
 
-웹 설치를 할 수 없거나 OpenWrt가 부팅되지 않을 때 씁니다. 3.3 V USB-UART 어댑터(GND, TX, RX만 연결, VCC는 연결하지 않음. 보드에 UART 핀 헤더가 달려 있고 핀 이름이 인쇄되어 있음), `192.168.0.100`의 PC에서 돌아가는 TFTP 서버, `*-slot.bin` 이미지가 필요합니다.
+웹 설치를 할 수 없거나 OpenWrt가 부팅되지 않을 때 씁니다. 3.3 V USB-UART 어댑터(GND, TX, RX만 연결, VCC는 연결하지 않음), `192.168.0.100`의 PC에서 돌아가는 TFTP 서버, `*-slot.bin` 이미지가 필요합니다. 참고로 이 기종은 보드에 UART 핀 헤더가 달려 있고 핀 이름이 인쇄되어 있습니다. 
 
 1. UART(115200 8N1)를 연결하고 전원을 켠 뒤 `Hit any key to stop autoboot`가 보이면 아무 키나 눌러 U-Boot `ECNT>` 프롬프트로 들어갑니다(대기 시간이 짧습니다).
 2. PC를 고정 IP `192.168.0.100/24`로 설정하고 LAN 포트(예: LAN1)에 연결한 뒤 TFTP 서버를 켭니다(Windows는 방화벽에서 TFTP 허용). 그다음 아래를 실행합니다(`<len>`은 파일 크기를 `0x20000` 단위로 올린 값).
@@ -111,7 +111,7 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 - **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261105` 위에 BE5100M 지원을 얹은 것입니다.
 - OpenWrt 프로젝트
 
-이 포트은 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
+이 포트는 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
 
 라이선스는 GPL-2.0입니다.
 
