@@ -4,8 +4,6 @@
 
 An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN). It keeps the stock U-Boot and never touches the bootloader.
 
-- OpenWrt target: `airoha/an7563`, device `iptime_be5100m`
-
 > [!WARNING]
 > This is unofficial firmware. Installing it may void your warranty, and if a flash goes wrong you may need a UART connection to recover. Use it at your own risk.
 
@@ -87,7 +85,7 @@ reboot
 
 ## Source and building
 
-The source is the `be5100m` branch of [junkim0215/openwrt](https://github.com/junkim0215/openwrt). Each release is tagged at the commit it was built from.
+The source is the `be5100m` branch of [junkim0215/openwrt](https://github.com/junkim0215/openwrt). Each release is tagged at the commit it was built from. OpenWrt target: `airoha/an7563`, device `iptime_be5100m`.
 
 | Release | Tag | Commit |
 |---|---|---|
