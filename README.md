@@ -81,6 +81,8 @@ reboot
 ## Known limitations
 
 - The stock reset-button TFTP recovery mode has not been tested. ipTIME Firmware Wizard does not support BE models.
+- The reboot after `sysupgrade` sometimes hangs. If the router does not come back after a few minutes, power-cycle it. The same problem is reported for the Xiaomi BE5000, which this build is based on.
+- Heavy CPU-routed traffic may jam the Ethernet frame engine. This bug was found on the Xiaomi BE5000, which this build is based on, so it may affect this router too. It has not been tested here.
 - Only the official `base`, `luci`, `packages`, `routing`, `telephony` and `video` package feeds are kept. Kernel modules that are not in the image cannot be installed with `apk add kmod-…`.
 
 ## Source and building
@@ -110,3 +112,5 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 This port was written with the help of Claude (Anthropic), and the changes were tested on real hardware.
 
 Licensed under GPL-2.0.
+
+The image also contains binary firmware for Wi-Fi and the NPU. See the license information of the corresponding OpenWrt packages.
