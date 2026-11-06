@@ -4,9 +4,6 @@
 
 ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포팅 펌웨어입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
 
-- 포트: 1 Gbps LAN 4개, 2.5 Gbps WAN 1개, USB 3.0 1개
-- OpenWrt target: `airoha/an7563`, device `iptime_be5100m`
-
 > [!WARNING]
 > 비공식 펌웨어입니다. 설치하면 제조사 보증이 사라질 수 있고, 플래시 중 문제가 생기면 UART 연결이 필요할 수 있습니다. 모든 책임은 사용자 본인에게 있습니다.
 
@@ -88,7 +85,7 @@ reboot
 
 ## 소스와 빌드
 
-소스는 [junkim0215/openwrt](https://github.com/junkim0215/openwrt)의 `be5100m` 브랜치입니다. 릴리스마다 빌드한 커밋에 태그가 있습니다.
+소스는 [junkim0215/openwrt](https://github.com/junkim0215/openwrt)의 `be5100m` 브랜치입니다. 릴리스마다 빌드한 커밋에 태그가 있습니다. OpenWrt target은 `airoha/an7563`, device는 `iptime_be5100m`입니다.
 
 | 릴리스 | 태그 | 커밋 |
 |---|---|---|
