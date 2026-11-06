@@ -4,6 +4,9 @@
 
 An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN). It keeps the stock U-Boot and never touches the bootloader.
 
+- Ports: 4 × 1 Gbps LAN, 1 × 2.5 Gbps WAN, 1 × USB 3.0
+- OpenWrt target: `airoha/an7563`, device `iptime_be5100m`
+
 > [!WARNING]
 > This is unofficial firmware. Installing it may void your warranty, and if a flash goes wrong you may need a UART connection to recover. Use it at your own risk.
 
@@ -35,18 +38,18 @@ Get the files from [Releases](../../releases).
 
 1. Open the stock admin page (`192.168.0.1`) → 관리도구 (Management) → 시스템 관리 (System) → 펌웨어 업그레이드 (Firmware upgrade).
 2. Upload `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin`. The file name must contain `_16_006`.
-3. Do not power off; the router reboots by itself. OpenWrt comes up at `192.168.1.1`. Set a root password.
-4. **If OpenWrt does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the official stock firmware (from the ipTIME download page) through the web UI **once more**, which brings it back to the main slot, then repeat steps 1–3.
+3. Do not power off; the router reboots by itself. OpenWrt comes up at `http://192.168.1.1` (user `root`, no password). Set a root password.
+4. **If OpenWrt does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the official stock firmware (from the [ipTIME download page](https://iptime.com/support/downloads?dfsid=21&dftid=903)) through the web UI **once more**, which brings it back to the main slot, then repeat steps 1–3.
 
 > [!IMPORTANT]
 > Use **only the r113 file** for web installs. Factory images from later builds fall back to the stock firmware on the second boot when installed through the web UI (a stock U-Boot `boot_try` behavior). Only r113 contains the fix for this.
 
 ## Installing or recovering with UART (advanced)
 
-Use this if the web install is not possible or OpenWrt no longer boots. You need a 3.3 V USB-UART adapter (connect GND, TX and RX only; never VCC), a TFTP server on a PC at `192.168.0.100`, and the `*-slot.bin` image.
+Use this if the web install is not possible or OpenWrt no longer boots. You need a 3.3 V USB-UART adapter (connect GND, TX and RX only; never VCC; the UART pin header is populated and labeled on the board), a TFTP server on a PC at `192.168.0.100`, and the `*-slot.bin` image.
 
 1. Connect the UART (115200 8N1), power on and press any key at `Hit any key to stop autoboot` to get the U-Boot `ECNT>` prompt (the countdown is short).
-2. Connect the PC to a LAN port and run (replace `<len>` with the file size rounded up to a multiple of `0x20000`):
+2. Set the PC to a static IP `192.168.0.100/24`, connect it to a LAN port (e.g. LAN1) and start the TFTP server (on Windows, allow TFTP in the firewall). Then run (replace `<len>` with the file size rounded up to a multiple of `0x20000`):
 
 ```
 tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
@@ -80,6 +83,7 @@ reboot
 
 ## Known limitations
 
+- The stock reset-button TFTP recovery mode has not been tested. ipTIME Firmware Wizard does not support BE models.
 - Only the official `base`, `luci`, `packages`, `routing`, `telephony` and `video` package feeds are kept. Kernel modules that are not in the image cannot be installed with `apk add kmod-…`.
 
 ## Source and building
