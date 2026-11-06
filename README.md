@@ -37,7 +37,7 @@ Get the files from [Releases](../../releases).
 2. Upload `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin`. The file name must contain `_16_006`.
 3. Do not power off; the router reboots by itself. LuCI comes up at `http://192.168.1.1` (user `root`, no password). Set a root password.
 4. **If OpenWrt does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the official stock firmware (from the [ipTIME download page](https://iptime.com/support/downloads?dfsid=21&dftid=903)) through the web UI, which brings it back to the main slot, then repeat steps 1–3.
-5. Flash the `*-sysupgrade.bin` of the latest release with sysupgrade.
+5. Flash the `*-sysupgrade.bin` of the latest release with sysupgrade (see [Upgrading](#upgrading))."
 
 > [!IMPORTANT]
 > Use **only the r113 file** for web installs. Factory images from later builds fall back to the stock firmware on the second boot when installed through the web UI (a stock U-Boot `boot_try` behavior). Only r113 contains the fix for this.
