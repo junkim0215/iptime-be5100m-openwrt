@@ -49,7 +49,7 @@ Use this if the web install is not possible or OpenWrt no longer boots. You need
 2. Set the PC to a static IP `192.168.0.100/24`, connect it to a LAN port (e.g. LAN1) and start the TFTP server (on Windows, allow TFTP in the firewall). Then run (replace `<len>` with the file size rounded up to a multiple of `0x20000`):
 
 ```
-tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
+tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-squashfs-slot.bin
 crc32 0x88000000 <len>
 flash erase 0x2D00000 <len>
 flash write 0x2D00000 <len> 0x88000000
@@ -89,8 +89,8 @@ The source is the `be5100m` branch of [junkim0215/openwrt](https://github.com/ju
 
 | Release | Tag | Commit |
 |---|---|---|
-| r113 (web install) | `be5100m-r113` | `b6e0f16590` |
-| r115 (sysupgrade) | `be5100m-r115` | `de8de5506c` |
+| [r113](../../releases/tag/r113) (web install) | `be5100m-r113` | `b6e0f16590` |
+| [r115](../../releases/tag/r115) (sysupgrade) | `be5100m-r115` | `de8de5506c` |
 
 ```
 git clone https://github.com/junkim0215/openwrt.git && cd openwrt
