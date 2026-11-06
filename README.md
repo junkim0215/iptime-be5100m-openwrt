@@ -4,13 +4,14 @@
 
 An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN). It keeps the stock U-Boot and never touches the bootloader.
 
-> **Warning:** This is unofficial firmware. Installing it may void your warranty, and if a flash goes wrong you may need a UART connection to recover. Use it at your own risk.
+> [!WARNING]
+> This is unofficial firmware. Installing it may void your warranty, and if a flash goes wrong you may need a UART connection to recover. Use it at your own risk.
 
 ## Status
 
 | Feature | Status |
 |---|---|
-| 4 LAN ports, WAN (DHCP) | Working (WAN verified on 100 Mbps / 1 Gbps links) |
+| 4 LAN ports, WAN (DHCP) | Working (WAN verified on a 100 Mbps link only) |
 | Wi-Fi 2.4 / 5 GHz | Working (KR regulatory domain) |
 | LEDs (CPU, 2.4G, 5G, WAN, LAN) | Working |
 | USB 3.0 storage (exFAT, vfat, ext4, ntfs3) | Working |
@@ -35,9 +36,34 @@ Get the files from [Releases](../../releases).
 1. Open the stock admin page (`192.168.0.1`) → 관리도구 (Management) → 시스템 관리 (System) → 펌웨어 업그레이드 (Firmware upgrade).
 2. Upload `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin`. The file name must contain `_16_006`.
 3. Do not power off; the router reboots by itself. OpenWrt comes up at `192.168.1.1`. Set a root password.
-4. **If OpenWrt does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the stock firmware through the web UI **once more**, which brings it back to the main slot, then repeat steps 1–3.
+4. **If OpenWrt does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the official stock firmware (from the ipTIME download page) through the web UI **once more**, which brings it back to the main slot, then repeat steps 1–3.
 
+> [!IMPORTANT]
 > Use **only the r113 file** for web installs. Factory images from later builds fall back to the stock firmware on the second boot when installed through the web UI (a stock U-Boot `boot_try` behavior). Only r113 contains the fix for this.
+
+## Installing or recovering with UART (advanced)
+
+Use this if the web install is not possible or OpenWrt no longer boots. You need a 3.3 V USB-UART adapter (connect GND, TX and RX only; never VCC), a TFTP server on a PC at `192.168.0.100`, and the `*-slot.bin` image.
+
+1. Connect the UART (115200 8N1), power on and press any key at `Hit any key to stop autoboot` to get the U-Boot `ECNT>` prompt (the countdown is short).
+2. Connect the PC to a LAN port and run (replace `<len>` with the file size rounded up to a multiple of `0x20000`):
+
+```
+tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
+crc32 0x88000000 <len>
+flash erase 0x2D00000 <len>
+flash write 0x2D00000 <len> 0x88000000
+flash read 0x2D00000 <len> 0x89000000
+crc32 0x89000000 <len>
+flash erase <0x2D00000+len> <0x2800000-len>
+bootflag read
+reset
+```
+
+3. Both `crc32` values must match the CRC of the file. If `bootflag read` shows `0`, run `bootflag swap` before `reset` so the second slot (OpenWrt) boots.
+
+> [!CAUTION]
+> Write only to `0x2D00000`–`0x54FFFFF` (the second slot). Do not run `saveenv` and do not write to any other address. To boot the stock firmware again from U-Boot, run `bootflag swap` so that the flag is `0`.
 
 ## Upgrading
 
@@ -55,7 +81,6 @@ reboot
 ## Known limitations
 
 - Only the official `base`, `luci`, `packages`, `routing`, `telephony` and `video` package feeds are kept. Kernel modules that are not in the image cannot be installed with `apk add kmod-…`.
-- For a detailed description of the slot layout and boot behavior, see [`docs/install-format-and-procedure.ko.md`](docs/install-format-and-procedure.ko.md) (Korean; an English version is planned).
 
 ## Source and building
 

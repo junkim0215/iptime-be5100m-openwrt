@@ -4,18 +4,19 @@
 
 ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포팅 펌웨어입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
 
-> **주의:** 비공식 펌웨어입니다. 설치하면 제조사 보증이 사라질 수 있고, 플래시 중 문제가 생기면 UART 연결이 필요할 수 있습니다. 모든 책임은 사용자 본인에게 있습니다.
+> [!WARNING]
+> 비공식 펌웨어입니다. 설치하면 제조사 보증이 사라질 수 있고, 플래시 중 문제가 생기면 UART 연결이 필요할 수 있습니다. 모든 책임은 사용자 본인에게 있습니다.
 
 ## 상태
 
 | 기능 | 상태 |
 |---|---|
-| LAN 4포트, WAN(DHCP) | 동작 (WAN은 100 Mbps/1 Gbps 환경에서 확인) |
+| LAN 4포트, WAN(DHCP) | 동작 (WAN은 100 Mbps 회선에서만 확인) |
 | Wi-Fi 2.4 / 5 GHz | 동작 (KR) |
 | LED(CPU, 2.4G, 5G, WAN, LAN) | 동작 |
 | USB 3.0 저장장치 (exFAT, vfat, ext4, ntfs3) | 동작 |
 | LuCI, sysupgrade(설정 유지) | 동작 |
-| 2.5G WAN 협상, USB 2.0 장치, 장시간 안정성, 처리량 | **미확인** |
+| 2.5G WAN 연결, USB 2.0 장치, 장시간 안정성, 처리량 | **미확인** |
 | critical 온도 트립 | 없음(데이터시트 없음) |
 
 한 대의 기기, 제조사 펌웨어 16.006에서만 확인했습니다.
@@ -35,9 +36,34 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 1. 제조사 펌웨어 관리 페이지(`192.168.0.1`) → 관리도구 → 시스템 관리 → 펌웨어 업그레이드.
 2. `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin`을 올립니다. 파일 이름에 `_16_006`이 들어 있어야 합니다.
 3. 전원을 끄지 말고 기다립니다. 자동 재부팅 후 `192.168.1.1`로 OpenWrt가 올라옵니다. root 비밀번호를 설정하세요.
-4. **5분 안에 OpenWrt가 안 열리고 제조사 펌웨어가 다시 올라오면**(중간에 한 번 스스로 재부팅됩니다) 제조사 펌웨어가 두 번째 슬롯에서 돌고 있었던 것입니다. 제조사 펌웨어를 웹 UI로 **한 번 더** 올리면 제조사 펌웨어가 메인 슬롯으로 돌아오니, 그 뒤 위 1~3을 다시 합니다.
+4. **5분 안에 OpenWrt가 안 열리고 제조사 펌웨어가 다시 올라오면**(중간에 한 번 스스로 재부팅됩니다) 제조사 펌웨어가 두 번째 슬롯에서 돌고 있었던 것입니다. ipTIME 홈페이지에서 받은 제조사 펌웨어를 웹 UI로 **한 번 더** 올리면 제조사 펌웨어가 메인 슬롯으로 돌아오니, 그 뒤 위 1~3을 다시 합니다.
 
-> 웹 설치에는 **r113 파일만** 쓰세요. 이후 버전의 factory 이미지는 웹 설치 시 두 번째 부팅에서 제조사 펌웨어로 되돌아갑니다(Stock U-Boot의 `boot_try` 동작). r113은 이를 막는 수정이 들어 있습니다.
+> [!IMPORTANT]
+> 웹 설치에는 **r113 파일만** 쓰세요. 이후 버전의 factory 이미지는 웹 설치 시 두 번째 부팅에서 제조사 펌웨어로 되돌아갑니다(제조사 U-Boot의 `boot_try` 동작). r113은 이를 막는 수정이 들어 있습니다.
+
+## UART로 설치·복구 (고급)
+
+웹 설치를 할 수 없거나 OpenWrt가 부팅되지 않을 때 씁니다. 3.3 V USB-UART 어댑터(GND, TX, RX만 연결, VCC는 연결하지 않음), `192.168.0.100`의 PC에서 돌아가는 TFTP 서버, `*-slot.bin` 이미지가 필요합니다.
+
+1. UART(115200 8N1)를 연결하고 전원을 켠 뒤 `Hit any key to stop autoboot`가 보이면 아무 키나 눌러 U-Boot `ECNT>` 프롬프트로 들어갑니다(대기 시간이 짧습니다).
+2. PC를 LAN 포트에 연결하고 아래를 실행합니다(`<len>`은 파일 크기를 `0x20000` 단위로 올린 값).
+
+```
+tftpboot 0x88000000 openwrt-airoha-an7563-iptime_be5100m-slot.bin
+crc32 0x88000000 <len>
+flash erase 0x2D00000 <len>
+flash write 0x2D00000 <len> 0x88000000
+flash read 0x2D00000 <len> 0x89000000
+crc32 0x89000000 <len>
+flash erase <0x2D00000+len> <0x2800000-len>
+bootflag read
+reset
+```
+
+3. 두 `crc32` 값이 파일의 CRC와 같아야 합니다. `bootflag read`가 `0`이면 `reset` 전에 `bootflag swap`을 실행해 두 번째 슬롯(OpenWrt)으로 부팅되게 합니다.
+
+> [!CAUTION]
+> `0x2D00000`–`0x54FFFFF`(두 번째 슬롯)에만 쓰세요. `saveenv`를 실행하거나 다른 주소에 쓰지 마세요. U-Boot에서 제조사 펌웨어로 돌아가려면 플래그가 `0`이 되도록 `bootflag swap`을 실행합니다.
 
 ## 업그레이드
 
@@ -55,7 +81,6 @@ reboot
 ## 알려진 제한 사항
 
 - 패키지 저장소는 공식 `base`, `luci`, `packages`, `routing`, `telephony`, `video`만 남깁니다. 이미지에 없는 커널 모듈은 `apk add kmod-…`로 설치할 수 없습니다.
-- 슬롯 구조와 부트 동작의 자세한 설명은 [`docs/install-format-and-procedure.ko.md`](docs/install-format-and-procedure.ko.md) (한국어, 영문판 예정)를 보세요.
 
 ## 소스와 빌드
 
