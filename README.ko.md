@@ -2,7 +2,7 @@
 
 [English](README.md) | **한국어**
 
-ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포팅 펌웨어입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
+ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포트입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
 
 > [!WARNING]
 > 비공식 펌웨어입니다. 설치하면 제조사 보증이 사라질 수 있고, 플래시 중 문제가 생기면 UART 연결이 필요할 수 있습니다. 모든 책임은 사용자 본인에게 있습니다.
@@ -107,11 +107,11 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 
 ## 크레딧
 
-- **xinyooo**: AN7563 포팅과 [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
+- **xinyooo**: AN7563 포트과 [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
 - **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261105` 위에 BE5100M 지원을 얹은 것입니다.
 - OpenWrt 프로젝트
 
-이 포팅은 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
+이 포트은 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
 
 라이선스는 GPL-2.0입니다.
 
