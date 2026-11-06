@@ -81,6 +81,8 @@ reboot
 ## 알려진 제한 사항
 
 - 제조사의 리셋 버튼 TFTP 복구 모드는 시험하지 않았습니다. ipTIME Firmware Wizard는 BE 모델을 지원하지 않습니다.
+- `sysupgrade` 후 재부팅이 가끔 멈춥니다. 몇 분이 지나도 돌아오지 않으면 전원을 껐다 켜세요. 이 빌드의 기반인 Xiaomi BE5000에서도 같은 문제가 보고되어 있습니다.
+- CPU로 라우팅되는 트래픽이 많으면 이더넷 프레임 엔진이 멈출 수 있습니다. 이 빌드의 기반인 Xiaomi BE5000에서 나타난 버그라 이 기기에도 해당될 수 있습니다. 여기서는 시험하지 않았습니다.
 - 패키지 저장소는 공식 `base`, `luci`, `packages`, `routing`, `telephony`, `video`만 남깁니다. 이미지에 없는 커널 모듈은 `apk add kmod-…`로 설치할 수 없습니다.
 
 ## 소스와 빌드
@@ -107,6 +109,8 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 - **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261105` 위에 BE5100M 지원을 얹은 것입니다.
 - OpenWrt 프로젝트
 
-이 포팅은 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
+이 포팅은 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실기에서 시험했습니다.
 
 라이선스는 GPL-2.0입니다.
+
+이미지에는 Wi-Fi와 NPU용 바이너리 펌웨어가 포함되어 있습니다. 라이선스는 해당 OpenWrt 패키지의 정보를 따릅니다.
