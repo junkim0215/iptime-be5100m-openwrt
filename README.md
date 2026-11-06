@@ -4,7 +4,6 @@
 
 An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN). It keeps the stock U-Boot and never touches the bootloader.
 
-- Ports: 4 × 1 Gbps LAN, 1 × 2.5 Gbps WAN, 1 × USB 3.0
 - OpenWrt target: `airoha/an7563`, device `iptime_be5100m`
 
 > [!WARNING]
