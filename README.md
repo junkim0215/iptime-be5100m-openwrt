@@ -85,26 +85,21 @@ fw_setenv boot_try 0 && reboot
 
 ## Source and building
 
-The source is the `be5100m` branch of [junkim0215/openwrt](https://github.com/junkim0215/openwrt). Each release is tagged at the commit it was built from. OpenWrt target: `airoha/an7563`, device `iptime_be5100m`.
-
-| Release | Tag | Commit |
-|---|---|---|
-| [r113](../../releases/tag/r113) (web install) | `be5100m-r113` | `b6e0f16590` |
-| [r115](../../releases/tag/r115) (sysupgrade) | `be5100m-r115` | `de8de5506c` |
+The source is the `be5100m` branch of junkim0215/openwrt. Each release is tagged
+at the commit it was built from (`be5100m-rNNN`); the tag and commit are listed
+in the release notes.
 
 ```
 git clone https://github.com/junkim0215/openwrt.git && cd openwrt
-git checkout be5100m-r115
+git checkout be5100m-rNNN    # e.g. be5100m-r132
 ./scripts/feeds update -a && ./scripts/feeds install -a
 cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ```
 
-`diffconfig` and `feeds.conf.default` are attached to the release. The r113 configuration is the r115 diffconfig plus `CONFIG_PACKAGE_uboot-envtools=y`.
-
 ## Credits
 
 - **xinyooo**: the AN7563 port and [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
-- **pabragin**: the OpenWrt build series for the Xiaomi BE5000 ([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). This repository adds BE5100M support on top of the release `be5000-openwrt-20261105`.
+- **pabragin**: the OpenWrt build series for the Xiaomi BE5000 ([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). This repository adds BE5100M support on top of the release `be5000-openwrt-20261109`.
 - The OpenWrt project
 
 This port was written with the help of Claude (Anthropic), and the changes were tested on real hardware.
