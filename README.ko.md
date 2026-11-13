@@ -73,8 +73,7 @@ OpenWrt 안에서 LuCI → 시스템 → 백업/펌웨어 업그레이드로 `sy
 OpenWrt에서 아래를 실행하면 부팅 시 U-Boot가 제조사 펌웨어로 전환합니다. 제조사 펌웨어가 메인 슬롯에 남아 있어야 합니다(정상 설치 상태). 설정 백업을 먼저 받으세요.
 
 ```
-mtd erase kernel
-reboot
+fw_setenv boot_try 0 && reboot
 ```
 
 ## 알려진 제한 사항
