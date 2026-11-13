@@ -16,7 +16,8 @@ An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM,
 | LEDs (CPU, 2.4G, 5G, WAN, LAN) | Working |
 | USB 3.0 storage (exFAT, vfat, ext4, ntfs3) | Working |
 | LuCI, sysupgrade (keeping settings) | Working |
-| 2.5G WAN negotiation, USB 2.0 devices, long-term stability, throughput | **Untested** |
+| 2.5G WAN negotiation | **Untested**, but 1G working |
+| USB 2.0 devices, long-term stability, throughput | **Untested** |
 | Critical temperature trip | None defined (no datasheet) |
 
 Tested on a single unit running stock firmware 16.006 only.
@@ -25,11 +26,11 @@ Tested on a single unit running stock firmware 16.006 only.
 
 Get the files from [Releases](../../releases).
 
-| File | Purpose |
+| File | Use |
 |---|---|
-| `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin` (r113) | **First install through the stock web UI only** |
-| `*-sysupgrade.bin` (r115 and later) | Upgrading from inside OpenWrt |
-| `*-slot.bin` | UART + TFTP install/recovery (advanced) |
+| `…-squashfs-factory_16_006.bin` | install from the stock web UI |
+| `…-squashfs-sysupgrade.bin` | upgrade from OpenWrt (keep settings) |
+| `…-squashfs-slot.bin` | U-Boot TFTP install (UART) |
 
 ## Installing (no UART, via the stock web UI)
 
@@ -38,10 +39,6 @@ Get the files from [Releases](../../releases).
 3. Do not power off; the router reboots by itself. Check whether LuCI comes up at `http://192.168.1.1` (user `root`, no password).
    - If LuCI comes up, set a root password.
    - **If OpenWrt (LuCI) does not come up within 5 minutes and the stock firmware returns** (the router reboots once by itself in between), the stock firmware was running from the second slot. Upload the official stock firmware (from the [ipTIME download page](https://iptime.com/support/downloads?dfsid=21&dftid=903)) through the web UI, which brings it back to the main slot, then repeat steps 1–3.
-4. Flash the `*-sysupgrade.bin` of the latest release with sysupgrade (see [Upgrading](#upgrading)).
-
-> [!IMPORTANT]
-> Use **only the r113 file** for web installs. Factory images from later builds fall back to the stock firmware on the second boot when installed through the web UI (a stock U-Boot `boot_try` behavior). Only r113 contains the fix for this.
 
 ## Installing or recovering with UART (advanced)
 
