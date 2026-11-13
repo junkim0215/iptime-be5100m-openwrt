@@ -73,8 +73,7 @@ From inside OpenWrt, use LuCI → System → Backup / Flash Firmware and upload 
 Run the following in OpenWrt; U-Boot then switches to the stock firmware on the next boot. The stock firmware must still be in the main slot (the normal installed state). Back up your settings first.
 
 ```
-mtd erase kernel
-reboot
+fw_setenv boot_try 0 && reboot
 ```
 
 ## Known limitations
