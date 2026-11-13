@@ -85,16 +85,12 @@ fw_setenv boot_try 0 && reboot
 
 ## 소스와 빌드
 
-소스는 [junkim0215/openwrt](https://github.com/junkim0215/openwrt)의 `be5100m` 브랜치입니다. 릴리스마다 빌드한 커밋에 태그가 있습니다. OpenWrt target은 `airoha/an7563`, device는 `iptime_be5100m`입니다.
-
-| 릴리스 | 태그 | 커밋 |
-|---|---|---|
-| [r113](../../releases/tag/r113) (웹 설치용) | `be5100m-r113` | `b6e0f16590` |
-| [r115](../../releases/tag/r115) (sysupgrade) | `be5100m-r115` | `de8de5506c` |
+소스는 junkim0215/openwrt의 `be5100m` 브랜치입니다. 릴리스마다 빌드한 커밋에
+태그(`be5100m-rNNN`)가 있고, 태그와 커밋은 릴리스 노트에 적혀 있습니다.
 
 ```
 git clone https://github.com/junkim0215/openwrt.git && cd openwrt
-git checkout be5100m-r115
+git checkout be5100m-rNNN    # e.g. be5100m-r132
 ./scripts/feeds update -a && ./scripts/feeds install -a
 cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ```
