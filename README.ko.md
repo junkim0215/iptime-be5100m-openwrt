@@ -95,8 +95,6 @@ git checkout be5100m-rNNN    # e.g. be5100m-r132
 cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ```
 
-`diffconfig`와 `feeds.conf.default`는 릴리스에 첨부되어 있습니다. r113의 설정은 r115 diffconfig에 `CONFIG_PACKAGE_uboot-envtools=y`를 더한 것입니다.
-
 ## 크레딧
 
 - **xinyooo**: AN7563 포트과 [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
