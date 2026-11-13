@@ -100,7 +100,7 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ## 크레딧
 
 - **xinyooo**: AN7563 포트과 [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
-- **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261105` 위에 BE5100M 지원을 얹은 것입니다.
+- **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261109` 위에 BE5100M 지원을 얹은 것입니다.
 - OpenWrt 프로젝트
 
 이 포트는 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
