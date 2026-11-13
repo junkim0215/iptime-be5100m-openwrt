@@ -68,7 +68,7 @@ reset
 
 From inside OpenWrt, use LuCI → System → Backup / Flash Firmware and upload a `sysupgrade.bin` (keeping settings is fine). Do not use `-F` (force).
 
-## Returning to stock (no UART)
+## Returning to stock (no UART, r132 or later)
 
 Run the following in OpenWrt; U-Boot then switches to the stock firmware on the next boot. The stock firmware must still be in the main slot (the normal installed state). Back up your settings first.
 
