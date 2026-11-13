@@ -16,7 +16,8 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 | LED(CPU, 2.4G, 5G, WAN, LAN) | 동작 |
 | USB 3.0 저장장치 (exFAT, vfat, ext4, ntfs3) | 동작 |
 | LuCI, sysupgrade(설정 유지) | 동작 |
-| 2.5G WAN 연결, USB 2.0 장치, 장시간 안정성, 처리량 | **미확인** |
+| 2.5G WAN 연결 | **미확인**, 1G 동작 확인 |
+| USB 2.0 장치, 장시간 안정성, 처리량 | **미확인** |
 | critical 온도 트립 | 없음(데이터시트 없음) |
 
 한 대의 기기, 제조사 펌웨어 16.006에서만 확인했습니다.
@@ -27,9 +28,9 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 
 | 파일 | 용도 |
 |---|---|
-| `openwrt-airoha-an7563-iptime_be5100m-factory_16_006.bin` (r113) | **제조사 웹 UI로 처음 설치할 때만** 사용 |
-| `*-sysupgrade.bin` (r115 이후) | OpenWrt 안에서 업그레이드 |
-| `*-slot.bin` | UART + TFTP 설치/복구용 (고급) |
+| `…-squashfs-factory_16_006.bin` | 정펌 웹 UI로 설치 |
+| `…-squashfs-sysupgrade.bin` | OpenWrt에서 업그레이드(설정 유지) |
+| `…-squashfs-slot.bin` | U-Boot TFTP 설치(UART) |
 
 ## 설치 (UART 없이, 제조사 웹 UI)
 
@@ -38,10 +39,6 @@ ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8
 3. 전원을 끄지 말고 기다립니다. 자동 재부팅 후 `http://192.168.1.1`로 LuCI가 뜨는지 확인합니다. 
    - LuCI가 뜰 경우 사용자는 `root`, 비밀번호는 없는 상태입니다. root 비밀번호를 설정하세요.
    - **5분 안에 OpenWrt (LuCI)가 안 뜨고 제조사 펌웨어가 다시 올라오면**(중간에 한 번 스스로 재부팅됩니다) 제조사 펌웨어가 두 번째 슬롯에서 돌고 있었던 것입니다. [ipTIME 다운로드 페이지](https://iptime.com/support/downloads?dfsid=21&dftid=903)에서 받은 제조사 펌웨어를 웹 UI로 올리면 제조사 펌웨어가 메인 슬롯으로 돌아오니, 그 뒤 위 1~3을 다시 시도합니다.
-4. `*-sysupgrade.bin`을 sysupgrade 방식으로 올려서 최신 릴리즈로 업그레이드하세요. ([업그레이드](#업그레이드) 문단을 참고하세요.)
-
-> [!IMPORTANT]
-> 웹 설치에는 **r113 파일만** 쓰세요. 이후 버전의 factory 이미지는 웹 설치 시 두 번째 부팅에서 제조사 펌웨어로 되돌아갑니다(제조사 U-Boot의 `boot_try` 동작). r113은 이를 막는 수정이 들어 있습니다.
 
 ## UART로 설치·복구 (고급)
 
