@@ -97,8 +97,10 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 
 ## 크레딧
 
-- **xinyooo**: AN7563 포트과 [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
-- **pabragin**: Xiaomi BE5000용 OpenWrt 빌드 시리즈([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). 이 저장소는 그 릴리스 `be5000-openwrt-20261109` 위에 BE5100M 지원을 얹은 것입니다.
+이 포팅은 다음 분들의 작업을 기반으로 만들어졌습니다:
+- **Ray Liu (xinyooo)**: AN7563 기본 지원(핀 컨트롤러, NAND 배드블록 테이블, U-Boot) 및 샤오미(Xiaomi) BE5000 지원 (openwrt/openwrt#23960)
+- **Iscle**: AN7563 이더넷, 스위치, PCIe 및 PPE 포워딩, 그리고 Wi-Fi 오프로딩을 위한 소스 빌드 AN7552 NPU 펌웨어
+- **Pavel Bragin (pabragin)**: 이 포팅의 기반이 된 샤오미 BE5000 빌드
 - OpenWrt 프로젝트
 
 이 포트는 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
