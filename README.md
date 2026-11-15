@@ -98,8 +98,15 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 
 ## Credits
 
-- **xinyooo**: the AN7563 port and [openwrt/openwrt#23960](https://github.com/openwrt/openwrt/pull/23960)
-- **pabragin**: the OpenWrt build series for the Xiaomi BE5000 ([xiaomi-be5000-openwrt](https://github.com/pabragin/xiaomi-be5000-openwrt)). This repository adds BE5100M support on top of the release `be5000-openwrt-20261109`.
+## Credits
+
+This port builds on the work of:
+
+- **Ray Liu (xinyooo)**: AN7563 base support (pin controller, NAND bad-block
+  tables, U-Boot) and the Xiaomi BE5000, openwrt/openwrt#23960
+- **Iscle**: AN7563 Ethernet, switch, PCIe and PPE forwarding, and the
+  source-built AN7552 NPU firmware for Wi-Fi offload
+- **Pavel Bragin (pabragin)**: the Xiaomi BE5000 build this port is based on
 - The OpenWrt project
 
 This port was written with the help of Claude (Anthropic), and the changes were tested on real hardware.
