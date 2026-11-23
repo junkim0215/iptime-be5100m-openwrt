@@ -88,13 +88,12 @@ fw_setenv boot_try 0 && reboot
 
 ## Source and building
 
-The source is the `be5100m` branch of junkim0215/openwrt. Each release is tagged
-at the commit it was built from (`be5100m-rNNN`); the tag and commit are listed
-in the release notes.
+The source is in junkim0215/openwrt. Each release is built from a tag
+(`be5100m-rNNN`); each release note lists its tag and commit.
 
 ```
 git clone https://github.com/junkim0215/openwrt.git && cd openwrt
-git checkout be5100m-rNNN    # e.g. be5100m-r132
+git checkout be5100m-rNNN    # e.g. be5100m-r151
 ./scripts/feeds update -a && ./scripts/feeds install -a
 cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ```
