@@ -113,6 +113,8 @@ This port builds on the work of:
 - **Iscle**: AN7563 Ethernet, switch, PCIe and PPE forwarding, and the
   source-built AN7552 NPU firmware for Wi-Fi offload
 - **Pavel Bragin (pabragin)**: the Xiaomi BE5000 build this port is based on
+- **Paulo José Rolim Braga Filho (paulojjj)**: the QDMA reset fix
+  (openwrt/openwrt#26755)
 - The OpenWrt project
 
 This port was written with the help of Claude (Anthropic), and the changes were tested on real hardware.

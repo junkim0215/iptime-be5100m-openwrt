@@ -109,6 +109,7 @@ cp <diffconfig> .config && make defconfig && make -j$(nproc)
 - **Ray Liu (xinyooo)**: AN7563 기본 지원(핀 컨트롤러, NAND 배드블록 테이블, U-Boot) 및 샤오미(Xiaomi) BE5000 지원 (openwrt/openwrt#23960)
 - **Iscle**: AN7563 이더넷, 스위치, PCIe 및 PPE 포워딩, 그리고 Wi-Fi 오프로딩을 위한 소스 빌드 AN7552 NPU 펌웨어
 - **Pavel Bragin (pabragin)**: 이 포팅의 기반이 된 샤오미 BE5000 빌드
+- **Paulo José Rolim Braga Filho (paulojjj)**: QDMA reset 수정 (openwrt/openwrt#26755)
 - OpenWrt 프로젝트
 
 이 포트는 Claude(Anthropic)의 도움을 받아 작성했고, 변경 사항은 실제 기기에서 시험했습니다.
