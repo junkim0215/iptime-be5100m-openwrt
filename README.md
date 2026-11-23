@@ -99,7 +99,10 @@ git checkout be5100m-rNNN    # e.g. be5100m-r132
 cp <diffconfig> .config && make defconfig && make -j$(nproc)
 ```
 
-## Credits
+## Other ipTIME devices
+
+- [ipTIME BE3600plus](https://github.com/junkim0215/iptime-be3600plus-openwrt) (Airoha AN7563)
+- [ipTIME BE5100plus](https://github.com/junkim0215/iptime-be5100plus-openwrt) (MediaTek MT7987, preview until official OpenWrt support)
 
 ## Credits
 
