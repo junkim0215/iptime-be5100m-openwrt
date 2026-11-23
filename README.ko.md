@@ -3,7 +3,7 @@
 [English](README.md) | **한국어**
 
 > [!TIP]
-> **OpenWrt를 쓰려고 공유기를 새로 고르는 중이라면** OpenWrt가 공식 지원하는 기기를 고르세요. 예를 들어 MediaTek Filogic 기반 ipTIME 모델(AX3000 계열 등)이 있습니다. 이 포트는 BE3600plus를 이미 가진 분들을 위한 것입니다.
+> **OpenWrt를 쓰려고 공유기를 새로 고르는 중이라면** OpenWrt가 공식 지원하는 기기를 고르세요. 예를 들어 MediaTek Filogic 기반 ipTIME 모델(AX3000 계열 등)이 있습니다. 이 포트는 BE5100M을 이미 가진 분들을 위한 것입니다.
 
 ipTIME BE5100M(Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN)에 OpenWrt를 설치하는 비공식 포트입니다. 제조사 U-Boot를 그대로 쓰며 부트로더를 건드리지 않습니다.
 
