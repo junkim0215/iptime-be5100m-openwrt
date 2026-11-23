@@ -82,7 +82,7 @@ fw_setenv boot_try 0 && reboot
 ## 알려진 제한 사항
 
 - 제조사의 리셋 버튼 TFTP 복구 모드는 시험하지 않았습니다. ipTIME Firmware Wizard는 BE 모델을 지원하지 않습니다.
-- `sysupgrade` 후 재부팅이 가끔 멈춥니다. 몇 분이 지나도 돌아오지 않으면 전원을 껐다 켜세요. 이 빌드의 기반인 Xiaomi BE5000에서도 같은 문제가 보고되어 있습니다.
+- sysupgrade 후 재부팅이 가끔 멈춥니다(3번에 1번 정도, pabragin BE5000과 같음). 이미지와 설정은 이미 기록돼 있으니 전원을 뽑았다 다시 꽂으세요.
 - CPU로 라우팅되는 트래픽이 많으면 이더넷 프레임 엔진이 멈출 수 있습니다. 이 빌드의 기반인 Xiaomi BE5000에서 나타난 버그라 이 기기에도 해당될 수 있습니다. 여기서는 시험하지 않았습니다.
 - 패키지 저장소는 공식 `base`, `luci`, `packages`, `routing`, `telephony`, `video`만 남깁니다. 이미지에 없는 커널 모듈은 `apk add kmod-…`로 설치할 수 없습니다.
 
