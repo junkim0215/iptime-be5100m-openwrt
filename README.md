@@ -3,7 +3,7 @@
 **English** | [한국어](README.ko.md)
 
 > [!TIP]
-> **Choosing a router for OpenWrt?** Pick one with official OpenWrt support instead, for example an ipTIME model on MediaTek Filogic (such as the AX3000 series). This port is for people who already own a BE3600plus.
+> **Choosing a router for OpenWrt?** Pick one with official OpenWrt support instead, for example an ipTIME model on MediaTek Filogic (such as the AX3000 series). This port is for people who already own a BE5100M.
 
 An unofficial OpenWrt port for the ipTIME BE5100M (Airoha AN7563PT, 512 MiB RAM, 128 MiB SPI-NAND, MT7992 Wi-Fi, EN8811H 2.5G WAN). It keeps the stock U-Boot and never touches the bootloader.
 
